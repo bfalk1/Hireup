@@ -10,7 +10,13 @@ const path = require('path');
 
 app.use(bodyParser.json());
 
-//app.use(cors({ origin: 'localhost:8001' }));
+const corsOptions = {
+  origin: ['http://localhost:8000', 'https://blinq.co', 'http://blinq.co'],
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(express.urlencoded({ extended: true }));
 

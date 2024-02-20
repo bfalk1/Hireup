@@ -202,7 +202,7 @@ class FirstPage extends LitElement {
     }
 
     userEmailLogin(input,type) {
-        
+        console.log(apiUrl)
         fetch(`${apiUrl}/api?username=${input}`)
         .then(response => response.json())
         .then(data => {

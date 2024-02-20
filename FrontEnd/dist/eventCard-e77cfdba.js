@@ -1,4 +1,4 @@
-import{x as e,s as t}from"./navbar-69232d55.js";customElements.define("input-image",class extends t{render(){return e`
+import{x as e,s as t}from"./navbar-a5c189b8.js";customElements.define("input-image",class extends t{render(){return e`
     <style>
     .file-label {
         cursor: pointer;
