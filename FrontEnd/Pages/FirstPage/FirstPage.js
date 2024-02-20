@@ -175,6 +175,7 @@ class FirstPage extends LitElement {
             this.error = "Please Enter Password";
             return;
         }
+        console.log(this.currentUser)
         if (this.currentUser.Password!== this.inputtedPassword) {
             this.error = "Incorrect password or email";
         } else {
@@ -204,7 +205,6 @@ class FirstPage extends LitElement {
         
         fetch(`${apiUrl}/api?username=${input}`)
         .then(response => response.json())
-        console.log(response)
         .then(data => {
           // Log the response from the API
           this.currentUser["Password"] = data.Password;

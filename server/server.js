@@ -10,7 +10,7 @@ const path = require('path');
 
 app.use(bodyParser.json());
 
-app.use(cors({ origin: 'localhost:8001' }));
+//app.use(cors({ origin: 'localhost:8001' }));
 
 app.use(express.urlencoded({ extended: true }));
 
