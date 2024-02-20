@@ -68,15 +68,15 @@ export const infoboxTemplate = (context) => {
       <p class="description">Showcase Your Skills. <br/> Fast-Track Your Career.</p>
       <div class="features">
         <div class="feature">
-        <img src="/Assets/CompetitionB.png" class="icon" alt="Logo">
+        <img src="/assets/CompetitionB.png" class="icon" alt="Logo">
           <p >Compete for Jobs</p>
         </div>
         <div class="feature">
-        <img src="/Assets/ExperienceB.png" class="icon" alt="Logo">
+        <img src="/assets/ExperienceB.png" class="icon" alt="Logo">
           <p>Gain Experience</p>
         </div>
         <div class="feature">
-        <img src="/Assets/RecrutingB.png" class="icon" alt="Logo">
+        <img src="/assets/RecrutingB.png" class="icon" alt="Logo">
           <p>Simplify Recruiting</p>
         </div>
       </div>

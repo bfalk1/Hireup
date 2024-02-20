@@ -74,7 +74,7 @@ export const NavbarTemplate = (context) => {
     </style> 
       
       <div class="navbar">
-      <img src="/Assets/logo.png" class="logo" alt="Logo">
+      <img src="/assets/logo.png" class="logo" alt="Logo">
       
       ${context.inMainApplication ? html` 
         

@@ -1,4 +1,4 @@
-import{x as e,s as t}from"./navbar-85a5316f.js";customElements.define("input-paragraph",class extends t{render(){return e`
+import{x as e,s as t}from"./navbar-2df9c591.js";customElements.define("input-paragraph",class extends t{render(){return e`
     <style>
     .inputText {
         flex: 1;

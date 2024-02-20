@@ -65,7 +65,7 @@ export default {
   plugins: [
     copy({
       targets: [
-        { src: 'Assets/*', dest: 'dist/Assets' }
+        { src: 'assets/*', dest: 'dist/assets' }
       ]
     }),
     // Minify JavaScript (optional)

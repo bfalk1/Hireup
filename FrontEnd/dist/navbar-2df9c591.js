@@ -1,4 +1,4 @@
-import{R as t,i as e}from"./router-409ca791.js";
+import{R as t,i as e}from"./router-31107cb2.js";
 /**
  * @license
  * Copyright 2019 Google LLC
@@ -160,7 +160,7 @@ console.warn("The main 'lit-element' module entrypoint is deprecated. Please upd
     </style> 
       
       <div class="navbar">
-      <img src="/Assets/logo.png" class="logo" alt="Logo">
+      <img src="/assets/logo.png" class="logo" alt="Logo">
       
       ${t.inMainApplication?L` 
         

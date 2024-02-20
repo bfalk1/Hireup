@@ -1,4 +1,4 @@
-import{x as t,s as e}from"./navbar-85a5316f.js";import"./eventCard-4f6e5cc0.js";import"./popup-75eb7d7c.js";import"./input-string-2ce67224.js";import"./input-paragraph-72e60c9e.js";import{a as i}from"./config-035642a6.js";import"./router-409ca791.js";const o=e=>t`
+import{x as t,s as e}from"./navbar-2df9c591.js";import"./eventCard-19917c2d.js";import"./popup-45a8a6a4.js";import"./input-string-91381bbc.js";import"./input-paragraph-ec8f3185.js";import{a as i}from"./config-035642a6.js";import"./router-31107cb2.js";const o=e=>t`
     <style>
       .container {
         display: flex;

@@ -1,4 +1,4 @@
-import{x as e,s as t}from"./navbar-85a5316f.js";import{R as i}from"./router-409ca791.js";import"./input-string-2ce67224.js";import"./input-password-d1a42061.js";import"./popup-75eb7d7c.js";import"./privacy-e8fd0dc2.js";import{a as r}from"./config-035642a6.js";customElements.define("info-box",class extends t{render(){return e`
+import{x as e,s as t}from"./navbar-2df9c591.js";import{R as i}from"./router-31107cb2.js";import"./input-string-91381bbc.js";import"./input-password-53d1743f.js";import"./popup-45a8a6a4.js";import"./privacy-c4da3614.js";import{a as r}from"./config-035642a6.js";customElements.define("info-box",class extends t{render(){return e`
     <style>
       .box {
         width: 100%;
@@ -64,15 +64,15 @@ import{x as e,s as t}from"./navbar-85a5316f.js";import{R as i}from"./router-409c
       <p class="description">Showcase Your Skills. <br/> Fast-Track Your Career.</p>
       <div class="features">
         <div class="feature">
-        <img src="/Assets/CompetitionB.png" class="icon" alt="Logo">
+        <img src="/assets/CompetitionB.png" class="icon" alt="Logo">
           <p >Compete for Jobs</p>
         </div>
         <div class="feature">
-        <img src="/Assets/ExperienceB.png" class="icon" alt="Logo">
+        <img src="/assets/ExperienceB.png" class="icon" alt="Logo">
           <p>Gain Experience</p>
         </div>
         <div class="feature">
-        <img src="/Assets/RecrutingB.png" class="icon" alt="Logo">
+        <img src="/assets/RecrutingB.png" class="icon" alt="Logo">
           <p>Simplify Recruiting</p>
         </div>
       </div>
