@@ -167,7 +167,7 @@ class FirstPage extends LitElement {
    
 
     memberLogin(e) {
-        console.log(apiUrl)
+        
         if (!this.currentUser) {
             this.error = "Please Enter valid Email Address";
             return;
@@ -204,21 +204,24 @@ class FirstPage extends LitElement {
         
         fetch(`${apiUrl}/api?username=${input}`)
         .then(response => response.json())
+        console.log(response)
         .then(data => {
           // Log the response from the API
           this.currentUser["Password"] = data.Password;
           this.currentUser["Name"] = data.Name;
           this.currentUser["email"] = input;
+          
         })
         .catch(error => {
            this.error = "User Not Found"
+           console.log(error)
+           
         });
         if (this.validateEmail(input,type)) {
             this.currentUser["email"] = input;
         } else {
             this.error = "Invalid Email";
         }
-        
         
     }
 

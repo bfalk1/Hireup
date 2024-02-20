@@ -1,4 +1,4 @@
-import{x as e,s as t}from"./navbar-cebb6ecc.js";import"./router-5c233873.js";import{a as i}from"./config-035642a6.js";class r extends t{render(){return e`
+import{x as e,s as t}from"./navbar-69232d55.js";import"./router-327a709d.js";import{a as i}from"./config-035642a6.js";class r extends t{render(){return e`
     <style>
       body {
   font-family: 'Arial', sans-serif;
