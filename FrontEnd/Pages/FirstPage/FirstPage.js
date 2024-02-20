@@ -9,6 +9,8 @@ class FirstPage extends LitElement {
   render() {
     return FirstPageTemplate(this);
   }
+
+
   static get properties() {
     return {
         ButtonClicked: { Type: Boolean},
@@ -165,6 +167,7 @@ class FirstPage extends LitElement {
    
 
     memberLogin(e) {
+        console.log(apiUrl)
         if (!this.currentUser) {
             this.error = "Please Enter valid Email Address";
             return;

@@ -1,4 +1,4 @@
-import{x as e,s as t}from"./navbar-2df9c591.js";import{R as i}from"./router-31107cb2.js";import"./input-string-91381bbc.js";import"./input-password-53d1743f.js";import{a as r}from"./config-035642a6.js";class o extends t{render(){return e`
+import{x as e,s as t}from"./navbar-cebb6ecc.js";import{R as i}from"./router-5c233873.js";import"./input-string-972e7c7b.js";import"./input-password-5a2b6ccb.js";import{a as r}from"./config-035642a6.js";class o extends t{render(){return e`
     <style>
        body {
       font-family: Arial, sans-serif;
