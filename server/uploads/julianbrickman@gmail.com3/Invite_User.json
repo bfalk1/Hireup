@@ -1,0 +1,21 @@
+"input": {
+	"Employee_username": String,
+},
+"output": {
+	"Current_Employees": Object,
+}
+
+//Example Data structure of the current employees, to verify that the invitation has been sent 
+
+"Current_Employees": {
+    "001": {
+        "Name": "Julian Brickman",
+        "In group": True
+        //accepted invitation
+    }
+    "001": {
+        "Name": "Anwar Hossain",
+        "In group": False
+        //Employee who has been invited but has not accepted yet, this gives confirmation that the invitation has sucessfully been sent
+    }
+}

@@ -1,0 +1,65 @@
+% Predicate to check if a formula is odd.
+oddliterals(Phi) :-
+    oddhelper(0, Phi).
+
+% Helper predicate to count negations.
+% Base case for a variable, check if the number of negations is odd.
+oddhelper(N, v(_)) :-
+    N mod 2 =:= 1.
+
+% Negation increases the count of negations.
+oddhelper(N, not(Phi)) :-
+    N1 is N + 1,
+    oddhelper(N1, Phi).
+
+% 'implies' is a negation for its left operand but not for the right.
+oddhelper(N, implies(L, R)) :-
+    N1 is N + 1,
+    oddhelper(N1, L),
+    oddhelper(N, R).
+
+% 'and' does not affect the negation count.
+oddhelper(N, and(L, R)) :-
+    oddhelper(N, L),
+    oddhelper(N, R).
+
+% 'or' is similar to 'and' in not affecting the negation count.
+oddhelper(N, or(L, R)).
+
+% UseAssumption Rule
+prove(Ctx, P, use_assumption(P)) :- member(P, Ctx).
+
+% Top-Right Rule
+prove(_, top, top_right).
+
+% Bot-Right Rule (if you have a rule like this)
+prove(Ctx, bot, bot_right) :- fail.
+
+% And-Right Rule
+prove(Ctx, and(P, Q), and_right(DerivP, DerivQ)) :-
+    prove(Ctx, P, DerivP),
+    prove(Ctx, Q, DerivQ).
+
+% Or-Left Rule
+prove(Ctx, or(P, _), or_left(DerivP)) :-
+    prove(Ctx, P, DerivP).
+prove(Ctx, or(_, Q), or_left(DerivQ)) :-
+    prove(Ctx, Q, DerivQ).
+
+% Implication-Right Rule
+prove(Ctx, implies(P, Q), implies_right(DerivQ)) :-
+    prove([P|Ctx], Q, DerivQ).
+
+% Not-Right Rule (if you have a rule like this)
+prove(Ctx, not(P), not_right(DerivP)) :-
+    prove(Ctx, P, DerivP), fail.
+
+% And-Right Rule
+prove(Ctx, and(Q1, Q2), and_right(Deriv1, Deriv2)) :-
+    prove(Ctx, Q1, Deriv1),
+    prove(Ctx, Q2, Deriv2).
+
+% Implies-Right Rule
+prove(Ctx, implies(P, Q), implies_right(Deriv)) :-
+    prove([P | Ctx], Q, Deriv).
+
