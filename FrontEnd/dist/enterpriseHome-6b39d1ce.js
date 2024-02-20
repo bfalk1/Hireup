@@ -1,4 +1,4 @@
-import{x as t,s as e}from"./navbar-5d6428c0.js";import{a as o}from"./config-1948f1ba.js";import"./eventCard-037d4348.js";import"./router-97df8b65.js";const i=e=>t`
+import{x as t,s as e,a as o}from"./navbar-f707f2c5.js";import"./eventCard-ba8db954.js";import"./router-df6c671c.js";const i=e=>t`
     <style>
     .container {
       display: flex;

@@ -1,4 +1,4 @@
-import{x as t,s as e}from"./navbar-5d6428c0.js";customElements.define("input-string",class extends e{render(){return t`
+import{x as t,s as e}from"./navbar-f707f2c5.js";customElements.define("input-string",class extends e{render(){return t`
     <style>
     .inputText {
         border-radius: 5px;
