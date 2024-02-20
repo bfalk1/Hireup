@@ -1,4 +1,4 @@
 # HireUp
-## Devlopers
-## Benjamin Falkner
-## Chris Egener
+## Developers 
+Benjamin Falkner
+Chris Egener
