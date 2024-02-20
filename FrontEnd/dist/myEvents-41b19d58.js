@@ -1,17 +1,16 @@
-import{x as t,s as e,a as o}from"./navbar-f707f2c5.js";import"./eventCard-ba8db954.js";import"./router-df6c671c.js";const i=e=>t`
+import{x as t,s as e}from"./navbar-85a5316f.js";import"./eventCard-4f6e5cc0.js";import{a as o}from"./config-035642a6.js";import"./router-409ca791.js";class i extends e{render(){return(e=>{const o=(t,o)=>{e.setPopupData(o),e.togglePopup(t)};return t`
     <style>
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 50px;
+      margin-top: 100px;
     }
    .event-section {
         background-color: white; /* Set the background color to white */
         border-radius: 15px;
         padding: 20px;
         max-width: 95%; /* Set maximum width for the section */
-        margin-top:80px;
         
     }
     .event-section h3,h1 {
@@ -111,7 +110,6 @@ import{x as t,s as e,a as o}from"./navbar-f707f2c5.js";import"./eventCard-ba8db9
           cursor: pointer;
           border-radius: 10px;
           box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-          position: absolute;
           left: 10%;
       }
 
@@ -138,12 +136,12 @@ import{x as t,s as e,a as o}from"./navbar-f707f2c5.js";import"./eventCard-ba8db9
         <h1 style="border-bottom: lightgray; color:rgb(6, 28, 113);
         border-bottom-style: solid; padding-top:10px;">Live Events</h1>
       <div class="event-grid">
-        ${e.eventData.map((o=>t`
-          <button class="card-button" @click=${t=>((t,o)=>{e.setPopupData(o),e.togglePopup(t)})(t,o)}>
+        ${e.eventData.map((e=>t`
+          <button class="card-button" @click=${t=>o(t,e)}>
             <event-card
-              title=${o.title}
-              description=${o.shortdescription}
-              img=${o.img}
+              title=${e.title}
+              description=${e.shortdescription}
+              img=${e.img}
               placeholder=""
             ></event-card>
           </button>
@@ -152,9 +150,34 @@ import{x as t,s as e,a as o}from"./navbar-f707f2c5.js";import"./eventCard-ba8db9
       </div>`:t`<section class="event-section"><h3 style=" text-align: center;
   border-bottom-style: none; 
   margin-bottom:2px;
+  color: rgb(6, 28, 113); ">No live events, Check the home page to enroll in an event!</h3></section>`}
+   ${e.submittedEvents.length>0?t`
+   </div>
+        <div style=" background-color: white;
+        width: 90%;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.3);
+        padding: 1%;
+        margin-top: 40px;
+        border-radius:10px;
+        position: relative;">
+        <h1 style="border-bottom: lightgray; color:rgb(6, 28, 113);
+        border-bottom-style: solid; padding-top:10px;">Submitted</h1>
+      <div class="event-grid">
+        ${e.submittedEvents.map((e=>t`
+          <button class="card-button" @click=${t=>o(t,e)}>
+            <event-card
+              title=${e.title}
+              description=${e.shortdescription}
+              img=${e.img}
+              placeholder=""
+            ></event-card>
+          </button>
+        `))}
+      </div>
+      </div>`:t`<section class="event-section"><h3 style=" text-align: center;
   
-  color: rgb(6, 28, 113); ">You have no events. Click create posting to start a new event!</h3></section>`}
-   
+  color: rgb(6, 28, 113);">No live events, Check home page to enroll in an event!</h3></section>`}
 
     
 
@@ -213,4 +236,4 @@ import{x as t,s as e,a as o}from"./navbar-f707f2c5.js";import"./eventCard-ba8db9
       </div>
       
       `:t``}
-  `;class n extends e{render(){return i(this)}static get properties(){return{popupOpen:{type:Boolean},eventData:{type:Object},user:{type:Object},filePopup:{type:Boolean},succesfullyUploaded:{type:String},submittedEvents:{type:Object},filesToDisplay:{type:Array}}}constructor(){super(),this.popupData={},this.popupOpen=!1,this.previouslyLoaded=!1,this.eventData=[],this.submittedEvents=[],this.currentUser={email:sessionStorage.getItem("email"),Name:sessionStorage.getItem("Name"),role:sessionStorage.getItem("role")},this.user="",this.filePopup=!1,this.succesfullyUploaded=null,this.filesToDisplay=[]}connectedCallback(){super.connectedCallback(),0===this.eventData.length&&this.fetchUserData()}fetchUserData(){0===this.eventData.length&&fetch(`${o}/api/home/?company-${this.currentUser.Name}`).then((t=>t.json())).then((t=>{this.currentUser.events=t.events,this.eventData=this.currentUser.events.filter((t=>0===t.submissions.length||(this.submittedEvents.push(t),!1)));for(const t in this.submittedEvents)this.displayFile(this.submittedEvents[t].submissions[0],this.submittedEvents[t].id)})).catch((t=>{this.error="User Not Found"}))}togglePopup(t){this.popupOpen=!this.popupOpen}closePopup(t,e){"Submission Sucessful"===this.succesfullyUploaded&&(this.eventData=this.eventData.filter((t=>t.id!==e||(this.submittedEvents.push(t),!1)))),this.succesfullyUploaded=null,this.filePopup=!1,this.popupOpen=!1}setPopupData(t){this.popupData=t}displayFile(t,e){console.log(t.filename);const i=String(this.currentUser.email+e);fetch(`${o}/api/files/${i}/${t.filename}`).then((t=>{if(!t.ok)throw new Error("Network response was not ok");return t.blob()})).then((o=>{const i=window.URL.createObjectURL(o),n=document.createElement("a");n.href=i,n.target="_blank",n.textContent=String(t.filename),n.setAttribute("download",t.filename),this.filesToDisplay.push({link:n,id:e})})).catch((t=>{console.error("Error fetching data:",t)}))}}customElements.define("enterprise-home",n);export{n as enterpriseHome};
+  `})(this)}static get properties(){return{popupOpen:{type:Boolean},eventData:{type:Object},user:{type:Object},filePopup:{type:Boolean},succesfullyUploaded:{type:String},submittedEvents:{type:Object},filesToDisplay:{type:Array}}}constructor(){super(),this.popupData={},this.popupOpen=!1,this.previouslyLoaded=!1,this.eventData=[],this.submittedEvents=[],this.currentUser={email:sessionStorage.getItem("email")},this.user="",this.filePopup=!1,this.succesfullyUploaded=null,this.filesToDisplay=[]}connectedCallback(){super.connectedCallback(),0===this.eventData.length&&this.fetchUserData()}fetchUserData(){0===this.eventData.length&&fetch(`${o}/api/home/?username=${this.currentUser.email}`).then((t=>t.json())).then((t=>{this.currentUser.events=t.events,this.eventData=this.currentUser.events.filter((t=>0===t.submissions.length||(this.submittedEvents.push(t),!1)));for(const t in this.submittedEvents)this.displayFile(this.submittedEvents[t].submissions[0],this.submittedEvents[t].id)})).catch((t=>{this.error="User Not Found"}))}togglePopup(t){this.popupOpen=!this.popupOpen}closePopup(t,e){"Submission Sucessful"===this.succesfullyUploaded&&(this.eventData=this.eventData.filter((t=>t.id!==e||(this.submittedEvents.push(t),!1)))),this.succesfullyUploaded=null,this.filePopup=!1,this.popupOpen=!1}setPopupData(t){this.popupData=t}fileSubmissionButton(t){this.filePopup=!0}async fileSubmission(t,e){t.preventDefault();const i=this.shadowRoot.querySelector("#fileToUpload").files[0];console.log(i);const n=window.URL.createObjectURL(i),s=document.createElement("a");if(s.href=n,s.target="_blank",s.textContent=String(i.name),s.setAttribute("download",i.name),console.log(i),this.filesToDisplay.push({link:s,id:e}),i){const t=new FormData;t.append("userId",String(this.currentUser.email)),t.append("eventId",String(e)),t.append("fileToUpload",i),fetch(`${o}/user/addSubmission/${this.currentUser.email}`,{method:"POST",body:t}).then((t=>t.json())).then((t=>{this.succesfullyUploaded="Submission Sucessful"})).catch((t=>{this.succesfullyUploaded="Application Error",console.error("Error:",t)}))}}displayFile(t,e){console.log(t.filename);const i=String(this.currentUser.email+e);fetch(`${o}/api/files/${i}/${t.filename}`).then((t=>{if(!t.ok)throw new Error("Network response was not ok");return t.blob()})).then((o=>{const i=window.URL.createObjectURL(o),n=document.createElement("a");n.href=i,n.target="_blank",n.textContent=String(t.filename),n.setAttribute("download",t.filename),this.filesToDisplay.push({link:n,id:e})})).catch((t=>{console.error("Error fetching data:",t)}))}}customElements.define("my-events",i);export{i as MyEventsPage};
