@@ -11,15 +11,16 @@ export default function Home() {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  return (
+  if (user){
+    return (
       user && (
           <div>
-            
-            
             <p>{user.email}</p>
           </div>
       )
   );
+  }
+  
   return <a href="/api/auth/login">Login</a>
   }
   
