@@ -11,7 +11,7 @@ export const env = createEnv({
       .string()
       .url()
       .refine(
-        (str) => !str.includes("mysql://8y2fcre2zggp199nezn3:pscale_pw_kmobfP8qJ09ERldyu3lqxrzhw7BAnD7jJFM475Dpc8z@aws.connect.psdb.cloud/hireup?sslaccept=strict"),
+        (str) => str.includes("mysql://8y2fcre2zggp199nezn3:pscale_pw_kmobfP8qJ09ERldyu3lqxrzhw7BAnD7jJFM475Dpc8z@aws.connect.psdb.cloud/hireup?sslaccept=strict"),
         
       ),
     NODE_ENV: z
