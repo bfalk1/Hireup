@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ['Poppins', ...fontFamily.sans], // Add 'Poppins' to the sans-serif font stack
       },
     },
   },

@@ -1,11 +1,8 @@
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { UserButton, useUser} from '@clerk/nextjs'
-
-
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -14,11 +11,26 @@ const navigation = [
   { name: 'Company', href: '#' },
 ]
 
-
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { isSignedIn, user } = useUser(); 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [panelStyle, setPanelStyle] = useState({ 
+    transform: 'translateX(100%)', 
+    transition: 'transform 400ms ease-in-out' 
+  });
+  const { isSignedIn, user } = useUser();
 
+  useEffect(() => {
+    setPanelStyle({
+      transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+      transition: 'transform 400ms ease-in-out'
+    });
+  }, [mobileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
+    
   return (
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -38,31 +50,29 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+            <a key={item.name} href={item.href} className="text-lg leading-6 text-gray-900 hover:text-blue-500 transition-colors duration-300">
               {item.name}
             </a>
           ))}
           {!isSignedIn && (
-            <div className="hidden lg:flex lg:gap-x-12">
+            <div className="hidden lg:flex lg:gap-x-12 text-lg">
                 <Link href='/sign-in'>Log In</Link>
                 <Link href='/sign-up'>Sign Up</Link>
             </div>
-            
           )}
-            {isSignedIn && (
-                <div className="flex items-center space-x-4">
-                <Link href='/profile'>
-                  Profile
-                </Link>
-                <UserButton />
-              </div>
-              
-            )}
+          {isSignedIn && (
+            <div className="flex items-center space-x-4">
+              <Link href='/profile'>Profile</Link>
+              <UserButton />
+            </div>
+          )}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <div className="fixed inset-0 z-10 bg-black bg-opacity-50" />
+        <Dialog.Panel 
+          style={panelStyle}
+          className="fixed inset-y-0 right-0 z-20 w-full max-w-md overflow-y-auto bg-white px-6 py-6">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -88,24 +98,20 @@ export default function Navbar() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={closeMobileMenu}
                   >
                     {item.name}
                   </a>
                 ))}
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+              <Link href='/sign-in'  onClick={closeMobileMenu}>Log In</Link>
               </div>
             </div>
           </div>
         </Dialog.Panel>
       </Dialog>
     </header>
-  )
+  );
 }
