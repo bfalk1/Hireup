@@ -11,7 +11,7 @@ const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
-  const [pendingVerification, setPendingVerification] = useState(true);
+  const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState('');
   const router = useRouter();
 
