@@ -44,8 +44,8 @@ export default function Navbar() {
           ))}
           {!isSignedIn && (
             <div className="hidden lg:flex lg:gap-x-12">
-                <Link href='/sign-in'>Log In</Link>
-                <Link href='/sign-up'>Sign Up</Link>
+                <Link href='/sign-in' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Log In</Link>
+                
             </div>
             
           )}
