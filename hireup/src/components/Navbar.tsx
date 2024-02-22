@@ -33,8 +33,8 @@ export default function Navbar() {
     
   return (
     <header className="bg-white">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-        <a href="#" className="-m-1.5 p-1.5">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8" aria-label="Global">
+        <a href="/" className="-m-1.5 p-1.5">
           <span className="sr-only">Your Company</span>
           <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
         </a>
@@ -48,7 +48,7 @@ export default function Navbar() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-12 lg:items-center">
           {navigation.map((item) => (
             <a key={item.name} href={item.href} className="text-lg leading-6 text-gray-900 hover:text-blue-500 transition-colors duration-300">
               {item.name}
@@ -74,7 +74,7 @@ export default function Navbar() {
           style={panelStyle}
           className="fixed inset-y-0 right-0 z-20 w-full max-w-md overflow-y-auto bg-white px-6 py-6">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
