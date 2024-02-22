@@ -1,24 +1,78 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["driverAdapters"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
-
-    // Do not use foreign keys (PlanetScale does not support them)
-    relationMode = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    @@index([name])
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([name])
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+}
+
+model Profile {
+  id          Int      @id @default(autoincrement())    
+  userId      Int
+  firstName   String
+  lastName    String
+  school      String
+  program     String
+  year        Int
+  age         Int
+  gpa         Float
+  phone       String
+  events      Event[]  // Relation to an Event model
+  experiences Experience[] // Relation to an Experience model
+}
+
+model Event {
+  id              Int         @id @default(autoincrement())
+  title           String
+  descriptions    String
+  shortDescription String
+  applicants      Applicant[] // Relation between Event and Applicant
+}
+
+model Applicant {
+  id        Int         @id @default(autoincrement())
+  eventId   Int         
+  event     Event       @relation(fields: [eventId], references: [id])
+  submissions String? 
+}
+
+model Experience {
+  id          String   @id @default(uuid())
+  companyName String
+  position    String
+  startDate   DateTime
+  endDate     DateTime?
+  profileId   String
+  profile     Profile @relation(fields: [profileId], references: [id])
+}
+
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  @@index([userId])
+}
+
+

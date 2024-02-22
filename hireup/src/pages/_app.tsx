@@ -1,16 +1,22 @@
-import { type AppType } from "next/app";
+
+import { ClerkProvider } from '@clerk/nextjs'
 
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 
-import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { AppType } from 'next/app';
+
+import Navbar from '~/components/Navbar';
+import Footer from '~/components/Footer';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return( 
-    <UserProvider >
+    <ClerkProvider >
+      <Navbar/>
     <Component {...pageProps} />
-  </UserProvider>
+    <Footer/>
+  </ClerkProvider>
     ) 
 };
 
