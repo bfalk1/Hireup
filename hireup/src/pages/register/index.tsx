@@ -2,35 +2,99 @@
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 
 import { useState } from 'react';
+import { useUser } from '@clerk/nextjs';
+
+import { PrismaClient } from '@prisma/client';
 
 function index() {
+
+  const { isSignedIn, user } = useUser(); 
+
+  const prisma = new PrismaClient()
+
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
   const [school, setSchool] = useState('');
   const [program, setProgram] = useState('');
-  const [year, setYear] = useState('');
-  const [gpa, setGpa] = useState('');
+  const [year, setYear] = useState();
+  const [gpa, setGpa] = useState();
   const [country, setCountry] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [city, setCity] = useState('');
   const [stateProvince, setStateProvince] = useState('');
   const [zipPostalCode, setZipPostalCode] = useState('');
+  const [about, setAbout] = useState('');
   const [experiences, setExperiences] = useState([
     { company: '', position: '', description: '', startDate: '', endDate: '' }
   ]);
-  const handleSubmit = async (e: any) => {
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }
+  
+    // Assuming `userId` is correctly defined somewhere above this function
+    const userId: string = "your_clerk_user_id_here"; // Make sure this is a string
+  
+    try {
+      // Use `await` to ensure the query completes before accessing the result
+      const user = await prisma.user.findUnique({
+        where: { clerkId: userId },
+        include: { profile: true }, // Assuming there's a relation to fetch profile
+      });
+  
+      // Check if user and user's profile are found
+      if (user && user.profile) {
+        const updatedProfile = await prisma.profile.update({
+          where: { id: user.profile.id }, // Correctly accessing profile ID
+          data: {
+            firstName: firstName,
+            lastName: lastName,
+            school: school,
+            program: program,
+            year: year,
+            gpa: gpa,
+            country: country,
+            streetAddress: streetAddress,
+            city: city,
+            stateProvince: stateProvince,
+            zipPostalCode: zipPostalCode,
+            about: about,
+            // Assuming you handle experiences update separately as it likely involves relational data
+          },
+        });
+  
+        console.log('Profile updated successfully:', updatedProfile);
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
+
   const addExperience = () => {
     setExperiences([...experiences, { company: '', position: '', description: '', startDate: '', endDate: '' }]);
   };
 
-  const handleChange = (index: Number, e: any) => {
-    const newExperiences = [...experiences];
-    newExperiences[index][e.target.name] = e.target.value;
-    setExperiences(newExperiences);
+  type Experience = {
+    company: string;
+    position: string;
+    description: string;
+    startDate: string;
+    endDate: string;
   };
+
+  const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const key = e.target.name as keyof Experience;
+    const value = e.target.value;
+
+    setExperiences(experiences.map((experience, i) => {
+      if (i === index) {
+        return { ...experience, [key]: value };
+      }
+      return experience;
+    }));
+  };
+
 
 
   return (
@@ -60,6 +124,7 @@ function index() {
                     id="first-name"
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
               </div>
@@ -75,66 +140,71 @@ function index() {
                     id="last-name"
                     autoComplete="family-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
               </div>
 
 
               <div className="sm:col-span-6">
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="school" className="block text-sm font-medium leading-6 text-gray-900">
                   School
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="school"
+                    name="school"
+                    type="text"
+                    autoComplete="school"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setSchool(e.target.value)}
                   />
                 </div>
               </div>
 
               <div className="sm:col-span-6">
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="program" className="block text-sm font-medium leading-6 text-gray-900">
                   Program
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="program"
+                    name="program"
+                    type="text"
+                    autoComplete="program"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setProgram(e.target.value)}
                   />
                 </div>
               </div>
               <div className="sm:col-span-3">
-                <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="year" className="block text-sm font-medium leading-6 text-gray-900">
                   Year
                 </label>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="first-name"
-                    id="first-name"
-                    autoComplete="given-name"
+                    name="year"
+                    id="year"
+                    autoComplete="year"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setYear(e.target.value)}
                   />
                 </div>
               </div>
 
               <div className="sm:col-span-3">
-                <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
+                <label htmlFor="gpa" className="block text-sm font-medium leading-6 text-gray-900">
                   GPA
                 </label>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="last-name"
-                    id="last-name"
-                    autoComplete="family-name"
+                    name="gpa"
+                    id="gpa"
+                    autoComplete="gpa"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setGpa(e.target.value)}
                   />
                 </div>
               </div>
@@ -148,6 +218,7 @@ function index() {
                     name="country"
                     autoComplete="country-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    onChange={(e) => setCountry(e.target.value)}
                   >
                     <option>United States</option>
                     <option>Canada</option>
@@ -167,6 +238,7 @@ function index() {
                     id="street-address"
                     autoComplete="street-address"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setStreetAddress(e.target.value)}
                   />
                 </div>
               </div>
@@ -182,6 +254,7 @@ function index() {
                     id="city"
                     autoComplete="address-level2"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setCity(e.target.value)}
                   />
                 </div>
               </div>
@@ -197,6 +270,7 @@ function index() {
                     id="region"
                     autoComplete="address-level1"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setStateProvince(e.target.value)}
                   />
                 </div>
               </div>
@@ -212,6 +286,7 @@ function index() {
                     id="postal-code"
                     autoComplete="postal-code"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={(e) => setZipPostalCode(e.target.value)}
                   />
                 </div>
               </div>
@@ -226,6 +301,7 @@ function index() {
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={''}
+                    onChange={(e) => setAbout(e.target.value)}
                   />
                 </div>
                 <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
@@ -247,6 +323,7 @@ function index() {
                       id="company"
                       autoComplete="company"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={(e) => handleChange(index, e)}
                       value={experience.company}
                     />
                   </div>
@@ -263,6 +340,7 @@ function index() {
                       autoComplete="position"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       value={experience.position}
+                      onChange={(e) => handleChange(index, e)}
                     />
                   </div>
                 </div>
@@ -278,6 +356,7 @@ function index() {
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       rows="3" // Adjust the number of rows as needed
                       value={experience.description}
+                      onChange={(e) => handleChange(index, e)}
                     />
                   </div>
                 </div>
@@ -292,7 +371,8 @@ function index() {
                       name="startDate"
                       className="block w-full rounded-md border-gray-300 px-2 pt-1 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       value={experience.startDate}
-                      
+                      onChange={(e) => handleChange(index, e)}
+
                     />
                   </div>
                 </div>
@@ -308,13 +388,10 @@ function index() {
                       name="endDate"
                       className="block w-full rounded-md border-gray-300 px-2 pt-1 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       value={experience.endDate}
-                      
+                      onChange={(e) => handleChange(index, e)}
                     />
                   </div>
                 </div>
-
-
-
               </div>
             </div>
           ))}

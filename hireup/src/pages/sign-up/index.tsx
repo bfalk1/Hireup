@@ -1,9 +1,9 @@
 "use client"
 
 import { useSignUp } from "@clerk/nextjs"
-import { sign } from "crypto"
 import { useState } from "react"
 import {useRouter} from "next/navigation"
+ 
 
 const SignUpPage = () => {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -11,7 +11,7 @@ const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
-  const [pendingVerification, setPendingVerification] = useState(true);
+  const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState('');
   const router = useRouter();
 
@@ -45,8 +45,7 @@ const SignUpPage = () => {
     if (!isLoaded){
       return;
     }
-    router.push('/NewUser');
-    return;
+    
     try{
       const completeSignup = await signUp.attemptEmailAddressVerification({
         code,

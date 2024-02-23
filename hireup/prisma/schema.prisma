@@ -18,41 +18,47 @@ model Post {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
+  clerkId       String    @unique
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  profile       Profile?  // Indicates a one-to-one relationship to Profile
+  sessions      Session[]
 }
 
 model Profile {
-  id          Int      @id @default(autoincrement())    
-  userId      Int
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique
+  user        User     @relation(fields: [userId], references: [id]) // Correctly set up the relation
   firstName   String
   lastName    String
   school      String
   program     String
   year        Int
-  age         Int
   gpa         Float
   phone       String
-  events      Event[]  // Relation to an Event model
-  experiences Experience[] // Relation to an Experience model
+  events      Event[]
+  experiences Experience[]
 }
 
+
 model Event {
-  id              Int         @id @default(autoincrement())
-  title           String
-  descriptions    String
+  id               Int          @id @default(autoincrement())
+  title            String
+  descriptions     String
   shortDescription String
-  applicants      Applicant[] // Relation between Event and Applicant
+  profileId        Int?
+  profile          Profile?     @relation(fields: [profileId], references: [id])
+  applicants       Applicant[]
 }
 
 model Applicant {
-  id        Int         @id @default(autoincrement())
-  eventId   Int         
-  event     Event       @relation(fields: [eventId], references: [id])
-  submissions String? 
+  id          Int      @id @default(autoincrement())
+  eventId     Int
+  event       Event    @relation(fields: [eventId], references: [id])
+  submissions String?
 }
 
 model Experience {
@@ -61,18 +67,14 @@ model Experience {
   position    String
   startDate   DateTime
   endDate     DateTime?
-  profileId   String
-  profile     Profile @relation(fields: [profileId], references: [id])
+  profileId   Int
+  profile     Profile  @relation(fields: [profileId], references: [id])
 }
-
 
 model Session {
   id           String   @id
   sessionToken String   @unique
-  userId       String
+  userId       String   // Assuming this should match with clerkId in User model; adjust if necessary
   expires      DateTime
-
-  @@index([userId])
+  user         User     @relation(fields: [userId], references: [clerkId]) // This line needs correction
 }
-
-
