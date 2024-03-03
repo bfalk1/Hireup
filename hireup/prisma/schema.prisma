@@ -9,15 +9,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([name])
-}
-
 model User {
   id            Int      @id @default(autoincrement())
   clerkId       String   @unique
@@ -44,23 +35,28 @@ model Profile {
   stateProvince String
   zipPostalCode String
   about         String
-  events        Event[]
+  eventIds      Int[]
   experiences   Experience[]
 }
 
 model Event {
   id               Int         @id @default(autoincrement())
   title            String
-  descriptions     String
+  theme            String
+  description      String
   shortDescription String
-  profileId        Int?
-  profile          Profile?    @relation(fields: [profileId], references: [id])
+  startDate DateTime
+  endDate DateTime
+  tags             String[]
+  companies        String[]
   applicants       Applicant[]
 }
 
 model Applicant {
   id          Int     @id @default(autoincrement())
   eventId     Int
+  profileId
+  profile Profile @relation(fields: [profileIdId], references: [id])
   submissions String?
   event       Event   @relation(fields: [eventId], references: [id])
 }
