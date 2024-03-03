@@ -1,9 +1,12 @@
 "use client"
-
-import { useSignUp } from "@clerk/nextjs"
-import { useState } from "react"
+import { useSignUp, useClerk } from "@clerk/nextjs"
+import { useState, useEffect } from "react"
 import {useRouter} from "next/navigation"
+import { useAuth } from "@clerk/nextjs"
+
  
+import { api } from "~/utils/api"
+
 
 const SignUpPage = () => {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -11,9 +14,39 @@ const SignUpPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
-  const [pendingVerification, setPendingVerification] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const [emailVerified, setPendingVerification] = useState(false);
   const [code, setCode] = useState('');
   const router = useRouter();
+
+  const {signOut} = useClerk()
+
+  const session = useAuth(); // Assuming isAuthenticated indicates whether the user is authenticated
+
+  // Redirect to main page if user is already signed in
+  useEffect(() => {
+    if (session.isSignedIn) {
+      router.push('/main'); // Replace current URL with the main page URL
+    }
+  }, [session.isSignedIn, router]);
+
+  const { mutate, error } = api.user.createUser.useMutation({
+    onSuccess: (data) => {
+      // Data here is the result of your createUser mutation
+      // Assuming that the result has a property `id` which is the user ID
+      const userId = data.id.toString();
+
+      // Do any other actions needed after successful user creation
+      console.log('User created successfully', data);
+      router.push('/register');
+    },
+    // Optionally, you can handle errors as well
+    onError: (error) => {
+      signOut()
+      console.error('Error creating user:', error);
+    },
+  });
 
   const handleSubmit = async (e:any) => { 
     e.preventDefault();
@@ -22,6 +55,9 @@ const SignUpPage = () => {
       return;
     }
 
+    if (password != confirmPassword){
+      throw new Error("Passwords do not match")
+    }
     try{
       await signUp.create({
         firstName: firstName,
@@ -30,13 +66,15 @@ const SignUpPage = () => {
         password,
       })
 
-      await signUp.prepareEmailAddressVerification({strategy: 'email_code'})
-
+      const user = await signUp.prepareEmailAddressVerification({strategy: 'email_code'})
+      
       setPendingVerification(true)
+      
     }
     catch (error){
       console.log(error)
     }
+    
   };
 
   const onPressVerify = async (e:any) => {
@@ -56,7 +94,9 @@ const SignUpPage = () => {
       }
       if(completeSignup.status == 'complete'){
         await setActive({session: completeSignup.createdSessionId})
-        router.push('/NewUser');
+        const user = mutate({ firstName, lastName, email, emailVerified});
+       
+        
       }
     }catch (error){
       console.log(error)
@@ -66,7 +106,7 @@ const SignUpPage = () => {
 
   return (
     <>
-      {!pendingVerification && (
+      {!emailVerified && (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           
@@ -150,6 +190,25 @@ const SignUpPage = () => {
                 />
               </div>
             </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Confirm Password
+                </label>
+                
+              </div>
+              <div className="mt-2">
+                <input
+                  id="confirmPassword"
+                  name="onfirmPassword"
+                  type="password"
+                  autoComplete="confirmPassword"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
 
             <div>
               <button
@@ -170,7 +229,7 @@ const SignUpPage = () => {
         </div>
       </div>
       )}
-      {pendingVerification && (
+      {emailVerified && (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img

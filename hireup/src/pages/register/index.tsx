@@ -1,24 +1,21 @@
 "use client"
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 
-import { useState } from 'react';
-import { useUser } from '@clerk/nextjs';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@clerk/nextjs';
+import {useRouter} from "next/navigation"
 
-import { PrismaClient } from '@prisma/client';
+import { api } from '~/utils/api';
 
 function index() {
-
-  const { isSignedIn, user } = useUser(); 
-
-  const prisma = new PrismaClient()
-
+  const router = useRouter();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
   const [school, setSchool] = useState('');
   const [program, setProgram] = useState('');
-  const [year, setYear] = useState();
-  const [gpa, setGpa] = useState();
+  const [year, setYear] = useState(0);
+  const [gpa, setGpa] = useState(0);
   const [country, setCountry] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [city, setCity] = useState('');
@@ -30,45 +27,41 @@ function index() {
   ]);
 
 
+  const session = useAuth(); // Assuming isAuthenticated indicates whether the user is authenticated
+
+  // Redirect to main page if user is already signed in
+  useEffect(() => {
+    if (session.isSignedIn) {
+      router.push('/main'); // Replace current URL with the main page URL
+    }
+  }, [session.isSignedIn, router]);
+
+ // const {user} = useUser(); 
+  const { mutate, error } = api.user.createProfile.useMutation({
+    onSuccess: (data) => {
+      // Save the user ID to session storage
+      sessionStorage.setItem('profileId', data.id.toString());
+
+      // Do any other actions needed after successful user creation
+      console.log('Profile created successfully', data);
+      router.push('/main');
+    },
+    // Optionally, you can handle errors as well
+    onError: (error) => {
+      console.error('Error creating user:', error);
+    },
+  });
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
-    // Assuming `userId` is correctly defined somewhere above this function
-    const userId: string = "your_clerk_user_id_here"; // Make sure this is a string
-  
-    try {
-      // Use `await` to ensure the query completes before accessing the result
-      const user = await prisma.user.findUnique({
-        where: { clerkId: userId },
-        include: { profile: true }, // Assuming there's a relation to fetch profile
-      });
-  
-      // Check if user and user's profile are found
-      if (user && user.profile) {
-        const updatedProfile = await prisma.profile.update({
-          where: { id: user.profile.id }, // Correctly accessing profile ID
-          data: {
-            firstName: firstName,
-            lastName: lastName,
-            school: school,
-            program: program,
-            year: year,
-            gpa: gpa,
-            country: country,
-            streetAddress: streetAddress,
-            city: city,
-            stateProvince: stateProvince,
-            zipPostalCode: zipPostalCode,
-            about: about,
-            // Assuming you handle experiences update separately as it likely involves relational data
-          },
-        });
-  
-        console.log('Profile updated successfully:', updatedProfile);
-      }
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
+    
+
+ 
+    const profile = mutate({ firstName, lastName, phone, school, program, year, gpa, country, streetAddress, city, stateProvince, zipPostalCode, about});
+      
+    
+
+    
   };
 
   const addExperience = () => {
@@ -94,8 +87,6 @@ function index() {
       return experience;
     }));
   };
-
-
 
   return (
 
@@ -183,12 +174,12 @@ function index() {
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
+                    type="number"
                     name="year"
                     id="year"
                     autoComplete="year"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={(e) => setYear(e.target.value)}
+                    onChange={(e) => setYear(parseFloat(e.target.value))}
                   />
                 </div>
               </div>
@@ -199,12 +190,12 @@ function index() {
                 </label>
                 <div className="mt-2">
                   <input
-                    type="text"
+                    type="number"
                     name="gpa"
                     id="gpa"
                     autoComplete="gpa"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={(e) => setGpa(e.target.value)}
+                    onChange={(e) => setGpa(parseFloat(e.target.value))}
                   />
                 </div>
               </div>
@@ -213,17 +204,15 @@ function index() {
                   Country
                 </label>
                 <div className="mt-2">
-                  <select
+                  <input
                     id="country"
+                    type="text"
                     name="country"
                     autoComplete="country-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     onChange={(e) => setCountry(e.target.value)}
                   >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
+                  </input>
                 </div>
               </div>
 
@@ -354,7 +343,7 @@ function index() {
                       name="description"
                       autoComplete="off" // Note: autoComplete doesn't apply to textarea, but included for consistency if needed
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      rows="3" // Adjust the number of rows as needed
+                      rows={3} // Adjust the number of rows as needed
                       value={experience.description}
                       onChange={(e) => handleChange(index, e)}
                     />

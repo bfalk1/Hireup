@@ -14,67 +14,63 @@ model Post {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@index([name])
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  clerkId       String    @unique
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  profile       Profile?  // Indicates a one-to-one relationship to Profile
-  sessions      Session[]
+  id            Int      @id @default(autoincrement())
+  clerkId       String   @unique
+  firstName     String?
+  lastName      String?
+  email         String?  @unique
+  emailVerified Boolean?
+  profileId     String?
 }
 
 model Profile {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @unique
-  user        User     @relation(fields: [userId], references: [id]) // Correctly set up the relation
-  firstName   String
-  lastName    String
-  school      String
-  program     String
-  year        Int
-  gpa         Float
-  phone       String
-  events      Event[]
-  experiences Experience[]
+  id            Int          @id @default(autoincrement())
+  clerkId       String       @unique
+  firstName     String
+  lastName      String
+  school        String
+  program       String
+  year          Int
+  gpa           Float
+  phone         String
+  country       String
+  streetAddress String
+  city          String
+  stateProvince String
+  zipPostalCode String
+  about         String
+  events        Event[]
+  experiences   Experience[]
 }
 
-
 model Event {
-  id               Int          @id @default(autoincrement())
+  id               Int         @id @default(autoincrement())
   title            String
   descriptions     String
   shortDescription String
   profileId        Int?
-  profile          Profile?     @relation(fields: [profileId], references: [id])
+  profile          Profile?    @relation(fields: [profileId], references: [id])
   applicants       Applicant[]
 }
 
 model Applicant {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   eventId     Int
-  event       Event    @relation(fields: [eventId], references: [id])
   submissions String?
+  event       Event   @relation(fields: [eventId], references: [id])
 }
 
 model Experience {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   companyName String
   position    String
   startDate   DateTime
   endDate     DateTime?
   profileId   Int
-  profile     Profile  @relation(fields: [profileId], references: [id])
-}
-
-model Session {
-  id           String   @id
-  sessionToken String   @unique
-  userId       String   // Assuming this should match with clerkId in User model; adjust if necessary
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [clerkId]) // This line needs correction
+  profile     Profile   @relation(fields: [profileId], references: [id])
 }

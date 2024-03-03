@@ -18,4 +18,7 @@ export const db =
     adapter: new PrismaPlanetScale(client),
   });
 
+
+
 if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
+
