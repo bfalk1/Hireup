@@ -1,9 +1,22 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
+
+import createMiddleware from "next-intl/middleware";
+
+
+const intlMiddleware = createMiddleware({
+  locales: ["en", "el"],
+ 
+  defaultLocale: "en",
+});
  
 export default authMiddleware({
+  afterAuth(auth, req, evt) {
+    if (!auth.userId && !auth.isPublicRoute) {
+      return redirectToSignIn({ returnBackUrl: req.url });
+    }
+  },
   // Routes that can be accessed while signed out
-  publicRoutes: ['/', '/sign-in','/sign-up','/register',
-   '/any-other-public-route'],
+  publicRoutes: ['/', '/sign-in','/sign-up','/register', '/api/trpc/user.getUser'],
   // Routes that can always be accessed, and have
   // no authentication information
   ignoredRoutes: ['/no-auth-in-this-route'],

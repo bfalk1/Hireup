@@ -10,7 +10,10 @@ import { AppType } from 'next/app';
 import Navbar from '~/components/Navbar';
 import Footer from '~/components/Footer';
 
+
+
 const MyApp: AppType = ({ Component, pageProps }) => {
+ 
   return( 
     <ClerkProvider >
       <Navbar/>
