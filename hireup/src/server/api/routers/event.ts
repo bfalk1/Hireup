@@ -6,24 +6,37 @@ import { db } from '~/server/db';
 export const eventRouter = createTRPCRouter({
     createEvent: privateProcedure
         .input(z.object({
-            firstName: z.string().optional(),
-            lastName: z.string().optional(),
-            email: z.string().email().optional(),
-            emailVerified: z.boolean().optional()
+            title: z.string(),
+            theme: z.string(),
+            description: z.string(),
+            shortDescription: z.string(),
+            startDate: z.string(), // Assuming date format, adjust as necessary
+            endDate: z.string(),   // Assuming date format, adjust as necessary
+            tags: z.string(),
+            companies: z.string(),
         }))
         .mutation(async ({ ctx, input }) => {
-            const clerkId = ctx.userId
-            const inputData = {  ...input, clerkId }; 
-            const user = await ctx.db.user.create({
-                data: inputData
+            const user = await ctx.db.event.create({
+                data: {
+                    title: input.title,
+                    theme: input.theme,
+                    description: input.description,
+                    shortDescription: input.shortDescription,
+                    startDate: new Date(input.startDate), // Assuming date format, adjust as necessary
+                    endDate: new Date(input.endDate),     // Assuming date format, adjust as necessary
+                    tags: input.tags,
+                    companies: input.companies,
+                    applicants: {
+                    }
+                }
             });
             return user;
         }),
+
     getEvents: privateProcedure
         .query(async ({ ctx }) => {
             const events = await ctx.db.event.findMany();
-            
-            return user;
+            return events;
         }),
-    
+
 });

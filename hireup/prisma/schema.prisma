@@ -35,7 +35,7 @@ model Profile {
   stateProvince String
   zipPostalCode String
   about         String
-  applications Applicant[]
+  applications String
   experiences   Experience[]
 }
 
@@ -45,24 +45,23 @@ model Event {
   theme            String
   description      String
   shortDescription String
-  startDate DateTime
-  endDate DateTime
-  tags             Tag[] @relation("EventTag", references: [id])
-  companies        Company[]  @relation("EventCompany", references: [id])
+  startDate        DateTime
+  endDate          DateTime
+  tags             String
+  companies        String
   applicants       Applicant[]
 }
 
 model Applicant {
-  id          Int     @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   eventId     Int
-  profileId Int @unique
-  profile Profile @relation(fields: [profileId], references: [id])
   submissions String?
-  event       Event   @relation(fields: [eventId], references: [id])
+  event     Event   @relation(fields: [eventId], references: [id])
+
 }
 
 model Experience {
-  id          String    @id @default(uuid())
+  id               Int         @id @default(autoincrement())
   companyName String
   position    String
   startDate   DateTime?
@@ -75,8 +74,6 @@ model Experience {
 model Company{
   id             Int            @id @default(autoincrement())
   name           String
-  hiringManagers HiringManager[] 
-  events   Event[]   @relation("EventCompany")
 }
 
 model HiringManager {
@@ -84,14 +81,10 @@ model HiringManager {
   firstName     String
   lastName      String
   email         String
-  company       Company
-  tags          Tag[]        
+  company       String
+  tags          String      
 }
 
 
-model Tag {
-  id            Int            @id @default(autoincrement())
-  name          String
-}
 
 
