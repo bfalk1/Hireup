@@ -6,6 +6,7 @@ import { db } from '~/server/db';
 export const userRouter = createTRPCRouter({
     createUser: privateProcedure
         .input(z.object({
+            username: z.string(),
             firstName: z.string().optional(),
             lastName: z.string().optional(),
             email: z.string().email().optional(),

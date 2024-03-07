@@ -30,11 +30,7 @@ function index() {
   const session = useAuth(); // Assuming isAuthenticated indicates whether the user is authenticated
 
   // Redirect to main page if user is already signed in
-  useEffect(() => {
-    if (session.isSignedIn) {
-      router.push('/main'); // Replace current URL with the main page URL
-    }
-  }, [session.isSignedIn, router]);
+  
 
  // const {user} = useUser(); 
   const { mutate, error } = api.user.createProfile.useMutation({

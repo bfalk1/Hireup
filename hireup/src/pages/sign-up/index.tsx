@@ -13,6 +13,7 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -60,6 +61,7 @@ const SignUpPage = () => {
     }
     try{
       await signUp.create({
+        username: username,
         firstName: firstName,
         lastName: lastName,
         emailAddress: email,
@@ -94,7 +96,7 @@ const SignUpPage = () => {
       }
       if(completeSignup.status == 'complete'){
         await setActive({session: completeSignup.createdSessionId})
-        const user = mutate({ firstName, lastName, email, emailVerified});
+        const user = mutate({ username, firstName, lastName, email, emailVerified});
        
         
       }
@@ -128,6 +130,22 @@ const SignUpPage = () => {
                   type="email"
                   autoComplete="email"
                   onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                Username
+              </label>
+              <div className="mt-2">
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

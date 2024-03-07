@@ -17,6 +17,7 @@ model User {
   email         String?  @unique
   emailVerified Boolean?
   profileId     String?
+  username      String @unique
 }
 
 model Profile {
@@ -35,7 +36,7 @@ model Profile {
   stateProvince String
   zipPostalCode String
   about         String
-  applications String
+  applications  String?
   experiences   Experience[]
 }
 
@@ -53,15 +54,14 @@ model Event {
 }
 
 model Applicant {
-  id          Int         @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   eventId     Int
   submissions String?
-  event     Event   @relation(fields: [eventId], references: [id])
-
+  event       Event   @relation(fields: [eventId], references: [id])
 }
 
 model Experience {
-  id               Int         @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   companyName String
   position    String
   startDate   DateTime?
@@ -70,21 +70,16 @@ model Experience {
   profile     Profile   @relation(fields: [profileId], references: [id])
 }
 
-
-model Company{
-  id             Int            @id @default(autoincrement())
-  name           String
+model Company {
+  id   Int    @id @default(autoincrement())
+  name String
 }
 
 model HiringManager {
-  id            Int           @id @default(autoincrement())
-  firstName     String
-  lastName      String
-  email         String
-  company       String
-  tags          String      
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String
+  company   String
+  tags      String
 }
-
-
-
-

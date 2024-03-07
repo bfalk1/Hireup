@@ -62,7 +62,7 @@ export default function Navbar() {
           )}
           {isSignedIn && (
             <div className="flex items-center space-x-4">
-              <Link href={`/Profile/${user.id}`}>
+              <Link href={`/Profile/${user.username}`}>
                Profile
               </Link>
               <UserButton />
