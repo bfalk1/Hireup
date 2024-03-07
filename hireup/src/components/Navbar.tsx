@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { UserButton, useUser} from '@clerk/nextjs'
+import { UserButton, useUser } from '@clerk/nextjs'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -13,9 +13,9 @@ const navigation = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [panelStyle, setPanelStyle] = useState({ 
-    transform: 'translateX(100%)', 
-    transition: 'transform 400ms ease-in-out' 
+  const [panelStyle, setPanelStyle] = useState({
+    transform: 'translateX(100%)',
+    transition: 'transform 400ms ease-in-out'
   });
   const { isSignedIn, user } = useUser();
 
@@ -30,7 +30,7 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   };
 
-    
+
   return (
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8" aria-label="Global">
@@ -56,13 +56,15 @@ export default function Navbar() {
           ))}
           {!isSignedIn && (
             <div className="hidden lg:flex lg:gap-x-12">
-                <Link href='/sign-in' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Log In</Link>
-                
+              <Link href='/sign-in' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Log In</Link>
+
             </div>
           )}
           {isSignedIn && (
             <div className="flex items-center space-x-4">
-              <Link href='/profile'>Profile</Link>
+              <Link href={`/Profile/${user.id}`}>
+               Profile
+              </Link>
               <UserButton />
             </div>
           )}
@@ -70,7 +72,7 @@ export default function Navbar() {
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50" />
-        <Dialog.Panel 
+        <Dialog.Panel
           style={panelStyle}
           className="fixed inset-y-0 right-0 z-20 w-full max-w-md overflow-y-auto bg-white px-6 py-6">
           <div className="flex items-center justify-between">
@@ -106,7 +108,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="py-6">
-              <Link href='/sign-in'  onClick={closeMobileMenu}>Log In</Link>
+                <Link href='/sign-in' onClick={closeMobileMenu}>Log In</Link>
               </div>
             </div>
           </div>
