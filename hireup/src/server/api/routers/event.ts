@@ -39,4 +39,50 @@ export const eventRouter = createTRPCRouter({
             return events;
         }),
 
+    enroll: privateProcedure
+        .input(z.object({
+            eventId: z.number(), // Event ID to associate the applicant with
+            submissions: z.string().optional(), // New field for applicant submissions
+        }))
+        .mutation(async ({ ctx, input }) => {
+            // Check if the event ID exists
+
+            console.log(ctx.userId)
+            
+            const existingEvent = await ctx.db.event.findUnique({
+                where: { id: input.eventId },
+            });
+
+            if (!existingEvent) {
+                throw new Error("Event not found");
+            }
+
+            // Check if the profile ID exists
+            const existingProfile = await ctx.db.profile.findUnique({
+                where: { clerkId: ctx.userId },
+            });
+
+            if (!existingProfile) {
+                throw new Error("Profile not found");
+            }
+
+            const applicant = await ctx.db.applicant.create({
+                data: {
+                    submissions: input.submissions,
+                    event: {
+                        connect: { id: existingEvent.id } // Associate applicant with the existing event
+                    },
+                    profile: {
+                        connect: { id: existingProfile.id } // Associate applicant with the existing profile
+                    }
+                }
+            });
+
+            // Return the created applicant
+            return applicant;
+        }),
+
+
+
+
 });

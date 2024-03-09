@@ -36,7 +36,7 @@ model Profile {
   stateProvince String
   zipPostalCode String
   about         String
-  applications  String?
+  applications  Applicant[]
   experiences   Experience[]
 }
 
@@ -56,6 +56,8 @@ model Event {
 model Applicant {
   id          Int     @id @default(autoincrement())
   eventId     Int
+  profileId   Int
+  profile     Profile   @relation(fields: [profileId], references: [id])
   submissions String?
   event       Event   @relation(fields: [eventId], references: [id])
 }

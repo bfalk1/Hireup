@@ -22,7 +22,12 @@ interface EventCardProps {
     event: Event;
 }
 
+import Link from "next/link";
+
+
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
+    const eventId = 1
+
     return (
       <div className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800" id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
@@ -41,12 +46,12 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">{event.title}</h2>
             <p className="mb-3 text-gray-500 dark:text-gray-400">{event.description}</p>
             
-            <a href="#" className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
+            <Link href={`/Event/${eventId}`} className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700">
               Learn more
               <svg className=" w-2.5 h-2.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
               </svg>
-            </a>
+            </Link>
           </div>
           <div className="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="services" role="tabpanel" aria-labelledby="services-tab">
             {/* Content for Services tab */}
