@@ -6,6 +6,7 @@ import { db } from '~/server/db';
 export const userRouter = createTRPCRouter({
     createUser: privateProcedure
         .input(z.object({
+            username: z.string(),
             firstName: z.string().optional(),
             lastName: z.string().optional(),
             email: z.string().email().optional(),
@@ -13,7 +14,7 @@ export const userRouter = createTRPCRouter({
         }))
         .mutation(async ({ ctx, input }) => {
             const clerkId = ctx.userId
-            const inputData = {  ...input, clerkId }; 
+            const inputData = { ...input, clerkId };
             const user = await ctx.db.user.create({
                 data: inputData
             });
@@ -56,28 +57,59 @@ export const userRouter = createTRPCRouter({
                     stateProvince: input.stateProvince,
                     zipPostalCode: input.zipPostalCode,
                     about: input.about,
+
                     // Assuming `events` and `experiences` are handled separately
                 } as any,
             });
         }),
-    
+
     getUser: privateProcedure
         .query(async ({ ctx }) => {
             const userId = ctx.userId
             const user = await ctx.db.user.findUnique({
-                where: { clerkId: userId  },
+                where: { clerkId: userId },
             });
             console.log(user)
             return user;
         }),
     getProfile: privateProcedure
-        .query(async ({ ctx}) => {
+        .query(async ({ ctx }) => {
             const userId = ctx.userId
             const profile = await ctx.db.profile.findUnique({
-                where: { clerkId: userId  },
+                where: { clerkId: userId },
             });
-            
+
             return profile;
 
         }),
+    getApplications: privateProcedure
+        .query(async ({ ctx }) => {
+            const userId = ctx.userId;
+            const profile = await ctx.db.profile.findUnique({
+                where: { clerkId: userId },
+                include: { applications: true }, // Include the 'applications' relation
+            });
+
+            if (!profile) {
+                throw new Error("Profile not found");
+            }
+
+            return profile.applications;
+        }),
+    getExperiences: privateProcedure
+        .query(async ({ ctx }) => {
+            const userId = ctx.userId;
+            const profile = await ctx.db.profile.findUnique({
+                where: { clerkId: userId },
+                include: { experiences: true }, // Include the 'experiences' relation
+            });
+
+            if (!profile) {
+                throw new Error("Profile not found");
+            }
+
+            return profile.experiences;
+        }),
+
+
 });
