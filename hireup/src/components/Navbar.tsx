@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { UserButton, useUser} from '@clerk/nextjs'
+import { UserButton, useUser } from '@clerk/nextjs'
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  { name: 'Product', href: '/product' },
+  { name: 'Features', href: '/features' },
+  { name: 'Marketplace', href: '/marketplace' },
+  { name: 'Company', href: '/product' },
 ]
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [panelStyle, setPanelStyle] = useState({ 
-    transform: 'translateX(100%)', 
-    transition: 'transform 400ms ease-in-out' 
+  const [panelStyle, setPanelStyle] = useState({
+    transform: 'translateX(100%)',
+    transition: 'transform 400ms ease-in-out'
   });
   const { isSignedIn, user } = useUser();
 
@@ -30,14 +30,15 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   };
 
-    
+
   return (
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8" aria-label="Global">
-        <a href="/" className="-m-1.5 p-1.5">
+        <Link href="/" className="-m-1.5 p-1.5">
           <span className="sr-only">Your Company</span>
           <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-        </a>
+        </Link>
+
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -50,14 +51,18 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12 lg:items-center">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-lg leading-6 text-gray-900 hover:text-blue-500 transition-colors duration-300">
+            <Link
+              key={item.name}
+              href={item.href}
+              className="text-lg leading-6 text-gray-900 hover:text-blue-500 transition-colors duration-300"
+            >
               {item.name}
-            </a>
+            </Link>
           ))}
           {!isSignedIn && (
             <div className="hidden lg:flex lg:gap-x-12">
-                <Link href='/sign-in' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Log In</Link>
-                
+              <Link href='/sign-in' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Log In</Link>
+
             </div>
           )}
           {isSignedIn && (
@@ -70,18 +75,20 @@ export default function Navbar() {
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50" />
-        <Dialog.Panel 
+        <Dialog.Panel
           style={panelStyle}
           className="fixed inset-y-0 right-0 z-20 w-full max-w-md overflow-y-auto bg-white px-6 py-6">
           <div className="flex items-center justify-between">
-            <a href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
-            </a>
+            <Link href="/">
+              <a className="-m-1.5 p-1.5">
+                <span className="sr-only">Your Company</span>
+                <img
+                  className="h-8 w-auto"
+                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  alt=""
+                />
+              </a>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -95,18 +102,18 @@ export default function Navbar() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base leading-7 text-gray-900 hover:bg-gray-50"
                     onClick={closeMobileMenu}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="py-6">
-              <Link href='/sign-in'  onClick={closeMobileMenu}>Log In</Link>
+                <Link href='/sign-in' onClick={closeMobileMenu}>Log In</Link>
               </div>
             </div>
           </div>

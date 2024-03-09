@@ -6,7 +6,7 @@ export async function newProfile(user: any, data: any) {
   try {
     const currentUser = await prisma.user.findUnique({
       where: { clerkId: user.id },
-      include: { profile: true }, // Assuming there's a relation to fetch profile
+      include: { profile: true } as any // Assuming there's a relation to fetch profile
     });
 
     if (currentUser) {
