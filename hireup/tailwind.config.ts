@@ -5,8 +5,10 @@ const {
 } = require("tailwindcss/lib/util/flattenColorPalette");
  
 
+
 export default {
   content: ["./src/**/*.tsx"],
+  darkMode: 'class', // Enable dark mode based on class
   theme: {
     extend: {
       screens: {
@@ -15,9 +17,19 @@ export default {
       fontFamily: {
         sans: ['Poppins', ...fontFamily.sans],
       },
+      colors: {
+        // Customize your dark mode colors here
+        dark: {
+          bg: '#1a202c',
+          text: '#ffffff',
+          // Add other dark mode colors as needed
+        },
+      },
     },
   },
-  plugins: [addVariablesForColors],
+  plugins: [
+
+    addVariablesForColors],
 }
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));

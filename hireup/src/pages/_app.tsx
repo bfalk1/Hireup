@@ -1,5 +1,5 @@
 
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider } from '@clerk/nextjs'
 
 import { api } from "~/utils/api";
 
@@ -7,8 +7,8 @@ import "~/styles/globals.css";
 
 import { AppType } from 'next/app';
 
-import Footer from '~/Components/Footer';
-import Navbar from '~/Components/Navbar';
+import Navbar from '~/components/Navbar';
+import Footer from '~/components/Footer';
 
 
 
@@ -17,9 +17,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return( 
     <ClerkProvider >
       <Navbar/>
-      <div className="pt-16">
-        <Component {...pageProps} />
-      </div>
+    <Component {...pageProps} className="pt-0"/>
     <Footer/>
   </ClerkProvider>
     ) 
