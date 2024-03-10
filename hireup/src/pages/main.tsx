@@ -1,56 +1,29 @@
-import EventCard from "~/components/EventCard";
-import { api } from "~/utils/api";
-import EventForm from "./Create-Event";
-import { useRouter } from "next/navigation"
-
+"use client";
+import React from "react";
+import { BackgroundBeams } from "~/components/ui/background-beams";
 
 export default function Main() {
-    const router = useRouter()
-    
-    const eventsQuery = api.event.getEvents.useQuery(undefined,{
-        onSuccess: (data)=>{
-            console.log("got events")
-        }, onError:(error)=>{
-            console.log("error getting events")
-        }
-    });
-
-    
-    const events = eventsQuery.data; // Assuming events is an array of event objects
-    let eventCards=null
-
-    if (events){
-        eventCards = events.map((event, index) => (
-            <div className="mx-40 my-5" key={index}>
-                <EventCard event={event} />
-            </div>
-        ));
-    }
-    
-    const handleCreateEvent = () =>{
-        router.push('/Create-Event')
-    }
-
-    return (
-        <div className="">
-            <button
-                onClick={handleCreateEvent}
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            
-            >
-                Create Event
-            </button>
-            {events &&
-                <div className="flex flex-wrap gap-4 mt-12">
-                    {eventCards}
-                </div>
-            }
-            {!events && <div>Loading ...</div>
-
-            }
-        </div>
-        
-    );
+  return (
+    <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
+      <div className="max-w-2xl mx-auto p-4">
+        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
+          Join the waitlist
+        </h1>
+        <p></p>
+        <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
+          Welcome to MailJet, the best transactional email service on the web.
+          We provide reliable, scalable, and customizable email solutions for
+          your business. Whether you&apos;re sending order confirmations,
+          password reset emails, or promotional campaigns, MailJet has got you
+          covered.
+        </p>
+        <input
+          type="text"
+          placeholder="hi@manuarora.in"
+          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700"
+        />
+      </div>
+      <BackgroundBeams />
+    </div>
+  );
 }
-
-  
