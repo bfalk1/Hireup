@@ -18,7 +18,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ['aceternity.com'],
+    domains: ['aceternity.com', 'cdn.usegalileo.ai'],
   },
 };
 
