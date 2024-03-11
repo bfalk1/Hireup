@@ -17,7 +17,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return( 
     <ClerkProvider >
       <Navbar/>
-    <Component {...pageProps} className="pt-0"/>
+    <Component {...pageProps} className="py-0"/>
     <Footer/>
   </ClerkProvider>
     ) 
