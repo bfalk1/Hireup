@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface Job {
   id: number;
@@ -25,21 +26,34 @@ const MarketplacePage: React.FC = () => {
     { id: 2, title: 'GPU Software Development Engineer - Graphics Memory', location: 'Folsom, CA', company: 'Intel Corporation', isActive: true },
     { id: 2, title: 'GPU Software Development Engineer - Graphics Memory', location: 'Folsom, CA', company: 'Intel Corporation', isActive: true },
   ];
+  const ref = React.useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  });
+
+  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+
+  const translateX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 100]), springConfig);
+  const translateXReverse = useSpring(useTransform(scrollYProgress, [0, 1], [0, -100]), springConfig);
+  
 
   return (
-    <div className="container mx-auto my-6">
-      <header>
-        {/* Your page header goes here */}
-      </header>
-      <main>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {jobs.map((job) => (
-            <JobCard key={job.id} {...job} />
-          ))}
-        </div>
-      </main>
+    <div
+      ref={ref}
+      className=" overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-dark-bg text-white"
+    >
+      <motion.div>
+        <motion.div className="flex flex-col justify-center items-center space-y-20 mb-20">
+          <JobCard id={1} title="title" location="Location" company="Company" isActive={true} />
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
 
 export default MarketplacePage;
+
+
+
+

@@ -3,9 +3,8 @@ import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const HeroParallax = ({ products }: { products: { title: string; link: string; thumbnail: string }[] }) => {
-  const firstRow = products.slice(0, 2);
-  const secondRow = products.slice(2, 4);
+export const HeroParallax = ({ product }: { product: { title: string;  thumbnail: string } }) => {
+  
 
   const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
@@ -37,17 +36,11 @@ export const HeroParallax = ({ products }: { products: { title: string; link: st
         }}
         className=""
       >
-        <motion.div className="flex flex-col justify-center items-center space-y-20 mb-20"> {/* Center the rows */}
-          <div className="flex flex-row-reverse space-x-reverse space-x-20">
-            {firstRow.map((product) => (
-              <ProductCard product={product} translate={translateX} key={product.title} />
-            ))}
-          </div>
-          <div className="flex flex-row space-x-20">
-            {secondRow.map((product) => (
-              <ProductCard product={product} translate={translateXReverse} key={product.title} />
-            ))}
-          </div>
+        <motion.div className="flex flex-col justify-center items-center space-y-20 mb-20"> 
+          
+           
+              <ProductCard product={product}  key={product.title} />
+           
         </motion.div>
       </motion.div>
     </div>
@@ -69,28 +62,26 @@ export const Header = () => {
   );
 };
 
-export const ProductCard = ({ product, translate }: { product: { title: string; link: string; thumbnail: string }; translate: MotionValue<number> }) => {
+export const ProductCard = ({ product }: { product: { title: string;  thumbnail: string }; }) => {
   return (
     <motion.div
-      style={{
-        x: translate,
-      }}
+      
       whileHover={{
         y: -20,
       }}
       key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      className="group/product h-[35rem] w-[60rem] relative flex-shrink-0 rounded-2xl"
     >
-      <Link href={product.link} className="block group-hover/product:shadow-2xl ">
+      <div className="block group-hover/product:shadow-2xl  ">
         <Image
           src={product.thumbnail}
-          height="600"
-          width="600"
+          height="1000"
+          width="1000"
           className="object-cover object-left-top absolute h-full w-full inset-0"
           alt={product.title}
         />
-      </Link>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
+      </div>
+      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-10 bg-black pointer-events-none"></div>
       <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
         {product.title}
       </h2>
