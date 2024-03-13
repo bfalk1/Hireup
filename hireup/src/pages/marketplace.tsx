@@ -45,7 +45,10 @@ const MarketplacePage: React.FC = () => {
     >
       <motion.div>
         <motion.div className="flex flex-col justify-center items-center space-y-20 mb-20">
-          <JobCard id={1} title="title" location="Location" company="Company" isActive={true} />
+            {jobs.map((job, index) => (
+            <JobCard id={index} title="title" location="Location" company="Company" isActive={true} />
+          ))}
+
         </motion.div>
       </motion.div>
     </div>
