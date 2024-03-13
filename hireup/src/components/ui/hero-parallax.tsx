@@ -66,7 +66,7 @@ export const HeroParallax = () => {
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0 bg-dark-bg">
+    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0  z-10">
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
         The Best Internship <br /> Recruiting Platform
       </h1>
@@ -78,6 +78,7 @@ export const Header = () => {
     </div>
   );
 };
+
 
 
 export const ProductCard = ({ product }: { product: { title: string;  thumbnail: string }; }) => {
