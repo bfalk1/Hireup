@@ -16,7 +16,7 @@ export default authMiddleware({
     }
   },
   // Routes that can be accessed while signed out
-  publicRoutes: ['/', '/sign-in','/sign-up','/register', '/forgot-password', '/main'],
+  publicRoutes: ['/', '/sign-in','/sign-up','/register', '/forgot-password', '/main', '/product', '/company'],
   // Routes that can always be accessed, and have
   // no authentication information
   ignoredRoutes: ['/no-auth-in-this-route'],
