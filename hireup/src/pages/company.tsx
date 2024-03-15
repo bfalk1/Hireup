@@ -6,8 +6,8 @@ const CompanyStory: React.FC = () => {
   return (
     <div className="bg-dark-bg">
       <div className="container mx-auto py-12 px-4 text-center">
-        <h2 className="text-4xl font-bold text-gray-800 mb-3">Our Story</h2>
-        <p className="text-gray-600 mb-6">
+        <h2 className="text-4xl font-bold text-white mb-3">Our Story</h2>
+        <p className="text-white mb-6">
           In 2006, YETI Coolers was founded with a simple mission: build the cooler
           you'd use every day if it existed.
         </p>

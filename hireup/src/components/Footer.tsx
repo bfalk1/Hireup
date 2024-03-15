@@ -37,7 +37,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="md:order-1">
-          <p className="text-center text-xs leading-5 text-gray-500">
+          <p className="text-center text-xs leading-5 text-white">
             &copy; 2020 Your Company, Inc. All rights reserved.
           </p>
         </div>
