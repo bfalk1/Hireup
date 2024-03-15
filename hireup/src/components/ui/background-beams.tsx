@@ -1,6 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
 import React from "react";
+import { motion } from "framer-motion";
 import { cn } from "~/utils/cn";
 
 export const BackgroundBeams = React.memo(
@@ -60,7 +60,7 @@ export const BackgroundBeams = React.memo(
     return (
       <div
         className={cn(
-          "z-0 absolute  h-full w-full inset-0  [mask-size:40px] [mask-repeat:no-repeat] flex items-center justify-center bg-dark-bg",
+          "absolute  h-full w-full inset-0  [mask-size:40px] [mask-repeat:no-repeat] flex items-center justify-center bg-dark-bg",
           className
         )}
       >
