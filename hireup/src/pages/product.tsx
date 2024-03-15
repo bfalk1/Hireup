@@ -18,6 +18,7 @@ const ProductPage: React.FC = () => {
   const productImageUrl = 'https://images.unsplash.com/photo-1581090700227-1e37b190418e';
 
   return (
+    
     <div className="bg-dark-bg min-h-screen">
       <div className="container mx-auto py-16 px-6">
         <div className="bg-white shadow-xl rounded-lg overflow-hidden">
@@ -45,6 +46,7 @@ const ProductPage: React.FC = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
