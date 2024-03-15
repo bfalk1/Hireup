@@ -1,14 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
 import { UserButton, useUser } from '@clerk/nextjs'
-import { Search } from 'react-feather'; // Import the Search icon from Feather Icons
+import { Dialog } from '@headlessui/react'
+import { Bars3Icon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 
 const navigation = [
   { name: 'Product', href: '/product' },
-  { name: 'Features', href: '/features' },
-  { name: 'Marketplace', href: '/marketplace' },
   { name: 'Company', href: '/company' },
 ]
 
@@ -74,14 +71,6 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12 lg:items-center">
           {/* Search icon */}
-          <button
-            type="button"
-            className=""
-            onClick={toggleSearch}
-          >
-            {/* Use the Search icon from Feather Icons */}
-            <Search className="h-6 w-6" aria-hidden="true" />
-          </button>
           {/* Navigation links */}
           {navigation.map((item) => (
             <Link
@@ -95,7 +84,7 @@ export default function Navbar() {
           {/* Conditional rendering based on authentication */}
           {!isSignedIn && (
             <div className="hidden lg:flex lg:gap-x-12">
-              <Link href='/sign-in' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Log In</Link>
+              <Link href='/main' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Join Waitlist</Link>
             </div>
           )}
           {isSignedIn && (
