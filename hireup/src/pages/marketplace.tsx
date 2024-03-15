@@ -10,45 +10,49 @@ interface Job {
 }
 
 const JobCard: React.FC<Job> = ({ title, location, company, isActive }) => (
-  <div className={`p-4 border rounded-lg ${isActive ? 'border-blue-500 bg-blue-100' : 'border-gray-300'} mb-4 shadow-sm`}>
+  <motion.div
+    className={`p-4 border rounded-lg ${isActive ? 'border-blue-500 bg-blue-100' : 'border-gray-300'} mb-4 shadow-sm`}
+    initial={{ opacity: 0, x: -50 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+  >
     <h3 className="font-bold text-lg">{title}</h3>
     <p className="text-gray-800">{location}</p>
     <footer className="flex justify-between items-center mt-4">
       <span className="text-sm font-medium text-gray-700">{company}</span>
       {isActive && <span className="text-xs font-semibold text-blue-800 bg-blue-200 px-2 py-1 rounded-full">Highly active</span>}
     </footer>
-  </div>
+  </motion.div>
 );
 
 const MarketplacePage: React.FC = () => {
   const jobs: Job[] = [
     { id: 1, title: 'GPU Software Development Engineer - Graphics Memory', location: 'Folsom, CA', company: 'Intel Corporation', isActive: true },
     { id: 2, title: 'GPU Software Development Engineer - Graphics Memory', location: 'Folsom, CA', company: 'Intel Corporation', isActive: true },
-    { id: 2, title: 'GPU Software Development Engineer - Graphics Memory', location: 'Folsom, CA', company: 'Intel Corporation', isActive: true },
+    { id: 3, title: 'GPU Software Development Engineer - Graphics Memory', location: 'Folsom, CA', company: 'Intel Corporation', isActive: true },
   ];
-  const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
+
+  const { scrollYProgress } = useScroll();
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
-  const translateX = useSpring(useTransform(scrollYProgress, [0, 1], [0, 100]), springConfig);
-  const translateXReverse = useSpring(useTransform(scrollYProgress, [0, 1], [0, -100]), springConfig);
-  
+  const translateX = useSpring(useTransform(scrollYProgress, [0, 1], [-200, 0]), springConfig);
+  const translateXReverse = useSpring(useTransform(scrollYProgress, [0, 1], [200, 0]), springConfig);
 
   return (
-    <div
-      ref={ref}
-      className=" overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-dark-bg text-white"
-    >
-      <motion.div>
-        <motion.div className="flex flex-col justify-center items-center space-y-20 mb-20">
-            {jobs.map((job, index) => (
-            <JobCard id={index} title="title" location="Location" company="Company" isActive={true} />
+    <div className="overflow-hidden antialiased relative flex flex-col self-auto bg-dark-bg text-white pb-20 px-56">
+      <motion.div style={{ x: translateX }}>
+        <motion.div className="flex flex-row space-x-4 mb-20">
+          {jobs.map((job, index) => (
+            <JobCard key={index} {...job} />
           ))}
-
+        </motion.div>
+      </motion.div>
+      <motion.div style={{ x: translateXReverse }}>
+        <motion.div className="flex flex-row space-x-4 mb-20">
+          {jobs.map((job, index) => (
+            <JobCard key={index} {...job} />
+          ))}
         </motion.div>
       </motion.div>
     </div>
@@ -56,7 +60,3 @@ const MarketplacePage: React.FC = () => {
 };
 
 export default MarketplacePage;
-
-
-
-
