@@ -11,18 +11,13 @@ export default function Main() {
           Join the waitlist
         </h1>
         <p></p>
-        <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
-          Welcome to MailJet, the best transactional email service on the web.
-          We provide reliable, scalable, and customizable email solutions for
-          your business. Whether you&apos;re sending order confirmations,
-          password reset emails, or promotional campaigns, MailJet has got you
-          covered.
-        </p>
+        <div className="max-w-2xl mx-auto p-4 flex justify-center">
         <input
-          type="text"
-          placeholder="email"
-          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700 text-white"
+            type="text"
+            placeholder="Enter your email"
+            className="rounded-lg border-0 focus:ring-2 focus:ring-teal-500 w-3/4 relative z-10 mt-4 bg-neutral-950 placeholder:text-neutral-700 text-white py-2 px-4 shadow-lg"
         />
+        </div>
         <div className="flex justify-center items-center gap-6 my-6">
                         <a className="text-gray-700 hover:text-orange-600" aria-label="Visit TrendyMinds LinkedIn" href=""
                             target="_blank">
