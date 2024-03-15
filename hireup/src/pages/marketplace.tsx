@@ -40,12 +40,24 @@ const MarketplacePage: React.FC = () => {
   const translateXReverse = useSpring(useTransform(scrollYProgress, [0, 1], [200, 0]), springConfig);
 
   return (
-    <div className="overflow-hidden antialiased relative flex flex-col self-auto bg-dark-bg text-white pb-20 px-56">
+    <div className="overflow-hidden antialiased relative flex flex-col self-auto bg-dark-bg text-white pb-10 px-56">
+
       <motion.div style={{ x: translateX }}>
-        <motion.div className="flex flex-row space-x-4 mb-20">
-          {jobs.map((job, index) => (
-            <JobCard key={index} {...job} />
-          ))}
+        <motion.div >
+          <div className="flex justify-center items-center h-full">
+            <div className="inline-block">
+              <h5 className="text-2xl font-semibold dark:text-white p-5 pl-0">
+                Ranked Job Applications
+              </h5>
+            </div>
+          </div>
+
+          <div className="flex flex-row space-x-4 mb-10">
+            {jobs.map((job, index) => (
+              <JobCard key={index} {...job} />
+            ))}
+          </div>
+
         </motion.div>
       </motion.div>
       <motion.div style={{ x: translateXReverse }}>

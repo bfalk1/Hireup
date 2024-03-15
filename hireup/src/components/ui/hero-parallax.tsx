@@ -34,11 +34,11 @@ export const HeroParallax = () => {
   return (
     <div
       ref={ref}
-      className="h-[250vh]  overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-dark-bg text-white"
+      className="h-[260vh] pt-60 pl-12 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-dark-bg text-white"
     >
       <Header />
-     <div >
-      <motion.div  className="flex flex-col justify-center items-center"style={{
+     <div className='mt-60'>
+      <motion.div  className="flex flex-col justify-center items-center gap-5"style={{
           opacity
         }}>
         <motion.div
@@ -66,18 +66,21 @@ export const HeroParallax = () => {
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0  z-10 ">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-        The Best Internship <br /> Recruiting Platform
-      </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-        We connect Hiring Managers with the best intern talent in the tech industry. 
-        Through our application and ranking process, we can provide teams with the perfect new hire 
-        based on their exact needs.
-      </p>
+    <div className="max-w-7xl relative  z-10 ">
+      <div className="inline-block">
+        <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+          The Best Internship <br /> Recruiting Platform
+        </h1>
+        <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+          We connect Hiring Managers with the best intern talent in the tech industry. 
+          Through our application and ranking process, we can provide teams with the perfect new hire 
+          based on their exact needs.
+        </p>
+      </div>
     </div>
   );
 };
+
 
 
 

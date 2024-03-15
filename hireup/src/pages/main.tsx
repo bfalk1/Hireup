@@ -55,7 +55,7 @@ export default function Main() {
                     </path>
                 </svg>
             </a>
-        div</div>
+        </div>
       </div>
       <BackgroundBeams />
     </div>
