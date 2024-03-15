@@ -4,7 +4,7 @@ const CompanyStory: React.FC = () => {
   const backgroundImageUrl = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085'; // Replace with a URL of your choice
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-dark-bg">
       <div className="container mx-auto py-12 px-4 text-center">
         <h2 className="text-4xl font-bold text-gray-800 mb-3">Our Story</h2>
         <p className="text-gray-600 mb-6">
