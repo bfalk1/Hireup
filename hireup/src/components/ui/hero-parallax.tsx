@@ -7,12 +7,12 @@ export const HeroParallax = () => {
   const product1 = 
     {
       title: "Ranked Candidates",
-      thumbnail: "https://cdn.usegalileo.ai/screenshots/0c085a1f-2ca5-4ceb-9093-fcc851fde373.webp",
+      thumbnail: "/ranking.png",
     }
     const product2 = 
     {
       title: "Candidate Applicaiton Feedback",
-      thumbnail: "https://cdn.usegalileo.ai/screenshots/74012bf0-613e-41f1-b6b1-d7b892df219d.webp",
+      thumbnail: "/assesment.png",
     }
 
 
@@ -34,7 +34,7 @@ export const HeroParallax = () => {
   return (
     <div
       ref={ref}
-      className="h-[260vh] pt-60 pl-12 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-dark-bg text-white"
+      className="h-[300vh] pt-60 pl-12 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-dark-bg text-white"
     >
       <Header />
      <div className='mt-60'>
@@ -92,27 +92,29 @@ export const Header = () => {
 
 
 
-export const ProductCard = ({ product }: { product: { title: string;  thumbnail: string }; }) => {
+export const ProductCard = ({ product }: { product: { title: string; thumbnail: string }; }) => {
   return (
     <motion.div
       whileHover={{
         y: -20,
       }}
-      className="group/product h-[35rem] w-[60rem] relative flex-shrink-0 rounded-2xl"
+      className="group/product h-[40.5rem] w-[67.5rem] relative flex-shrink-0 rounded-2xl overflow-hidden"
     >
       <div className="block group-hover/product:shadow-2xl">
         <Image
           src={product.thumbnail}
-          height="1000"
-          width="1000"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
+          layout="fill"
+          objectFit="cover"
+          className="object-cover object-left-top absolute inset-0"
           alt={product.title}
         />
       </div>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-10 bg-black pointer-events-none"></div>
+      <div className="absolute inset-0 opacity-0 group-hover/product:opacity-10 bg-black pointer-events-none"></div>
       <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
         {product.title}
       </h2>
     </motion.div>
   );
 };
+
+

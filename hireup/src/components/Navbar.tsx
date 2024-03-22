@@ -53,10 +53,10 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 z-10 w-full bg-dark-bg text-white bg-opacity-25 backdrop-filter backdrop-blur-lg">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8" aria-label="Global">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between  lg:px-8" aria-label="Global">
       <Link href="/" className="-m-1.5 p-1.5">
   <span className="sr-only">Your Company</span>
-  <img className="h-12 w-auto" src="/HireUp.png" alt="" />
+  <img className="h-16 w-auto" src="/HireUp.png" alt="" />
 </Link>
 
 
