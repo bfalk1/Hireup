@@ -72,10 +72,12 @@ export const Header = () => {
           The Best Internship <br /> Recruiting Platform
         </h1>
         <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-          We connect Hiring Managers with the best intern talent in the tech industry. 
-          Through our application and ranking process, we can provide teams with the perfect new hire 
-          based on their exact needs.
-        </p>
+  We connect <strong className="font-bold" style={{ color: '#006EFF' }}>Hiring Managers</strong> with the best <strong className="font-bold" style={{ color: '#006EFF' }}>Intern Talent</strong> in the tech industry. 
+  Through our application and ranking process, we can provide teams with the <strong className="font-bold" style={{ color: '#006EFF' }}>perfect new hire </strong>
+  based on their exact needs.
+</p>
+
+
       </div>
     </div>
   );

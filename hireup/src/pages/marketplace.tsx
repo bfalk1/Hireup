@@ -16,8 +16,8 @@ const JobCard: React.FC<Job> = ({ title, location, company, isActive }) => (
     animate={{ opacity: 1, x: 0 }}
     transition={{ duration: 0.5 }}
   >
-    <h3 className="font-bold text-lg">{title}</h3>
-    <p className="text-gray-800">{location}</p>
+    <h3 className="font-bold text-black text-lg">{title}</h3>
+    <p className="text-black">{location}</p>
     <footer className="flex justify-between items-center mt-4">
       <span className="text-sm font-medium text-gray-700">{company}</span>
       {isActive && <span className="text-xs font-semibold text-blue-800 bg-blue-200 px-2 py-1 rounded-full">Highly active</span>}

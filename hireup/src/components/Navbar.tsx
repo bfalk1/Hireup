@@ -54,10 +54,11 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 z-10 w-full bg-dark-bg text-white bg-opacity-25 backdrop-filter backdrop-blur-lg">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8" aria-label="Global">
-        <Link href="/" className="-m-1.5 p-1.5">
-          <span className="sr-only">Your Company</span>
-          <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-        </Link>
+      <Link href="/" className="-m-1.5 p-1.5">
+  <span className="sr-only">Your Company</span>
+  <img className="h-12 w-auto" src="/HireUp.png" alt="" />
+</Link>
+
 
         <div className="flex lg:hidden">
           <button
@@ -84,8 +85,9 @@ export default function Navbar() {
           {/* Conditional rendering based on authentication */}
           {!isSignedIn && (
             <div className="hidden lg:flex lg:gap-x-12">
-              <Link href='/main' className='rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>Join Waitlist</Link>
-            </div>
+            <Link href='/main' className='rounded-full px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' style={{ backgroundColor: '#006EFF' }}>Join Waitlist</Link>
+          </div>
+          
           )}
           {isSignedIn && (
             <div className="flex items-center space-x-4">
