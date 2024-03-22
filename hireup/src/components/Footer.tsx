@@ -13,20 +13,10 @@ type NavigationItem = {
 
 // Your navigation array with type-safe props for icons
 const navigation: NavigationItem[] = [
+  
   {
-    name: 'Facebook',
-    href: '#',
-    icon: (props: React.SVGProps<SVGSVGElement>) => (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" className="h-8">
-        <path fill="currentColor"
-          d="m279.14 288 14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-        </path>
-      </svg>
-    ),
-  },
-  {
-    name: 'Instagram',
-    href: '#',
+    name: 'Linkedin',
+    href: 'https://www.linkedin.com/company/usehireup/about/',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="h-8">
         <path fill="currentColor"
@@ -36,8 +26,8 @@ const navigation: NavigationItem[] = [
     ),
   },
   {
-    name: 'LinkedIn',
-    href: '#',
+    name: 'Instagram',
+    href: 'https://www.instagram.com/usehireup/',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="h-8">
         <path fill="currentColor"
@@ -48,7 +38,7 @@ const navigation: NavigationItem[] = [
   },
   {
     name: 'Twitter',
-    href: '#',
+    href: 'https://twitter.com/useHireup',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg className="h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
         <path fill="currentColor"
@@ -64,7 +54,9 @@ const navigation: NavigationItem[] = [
 export default function Footer() {
   return (
     <footer className="bg-dark-bg text-white w-full">
+      
       <div className="flex flex-col justify-between h-full mx-auto max-w-7xl px-6 py-12 md:flex-row md:items-center md:justify-between lg:px-8">
+        <div></div>
         <div className="flex justify-center space-x-6 md:order-2">
           {navigation.map((item) => (
             <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
@@ -73,11 +65,7 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <div className="md:order-1">
-          <p className="text-center text-xs leading-5 text-white">
-            &copy; 2020 Your Company, Inc. All rights reserved.
-          </p>
-        </div>
+        
       </div>
     </footer>
   );

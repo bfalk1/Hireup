@@ -20,7 +20,7 @@ export default {
       colors: {
         // Customize your dark mode colors here
         dark: {
-          bg: '#1a202c',
+          bg: '#01011c',
           text: '#ffffff',
           // Add other dark mode colors as needed
         },

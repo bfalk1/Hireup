@@ -1,17 +1,17 @@
 import React from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import Image from 'next/image';
-
+import Link from 'next/link';
 export const HeroParallax = () => {
   
   const product1 = 
     {
-      title: "Ranking 1",
+      title: "Ranked Candidates",
       thumbnail: "https://cdn.usegalileo.ai/screenshots/0c085a1f-2ca5-4ceb-9093-fcc851fde373.webp",
     }
     const product2 = 
     {
-      title: "Ranking 2",
+      title: "Candidate Applicaiton Feedback",
       thumbnail: "https://cdn.usegalileo.ai/screenshots/74012bf0-613e-41f1-b6b1-d7b892df219d.webp",
     }
 
@@ -26,7 +26,7 @@ export const HeroParallax = () => {
 
   
   const rotateX = useSpring(useTransform(scrollYProgress, [0, 0.2], [40, 0]), springConfig);
-  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.3, 1]), springConfig);
+  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.55, 1]), springConfig);
   const rotateZ = useSpring(useTransform(scrollYProgress, [0, 0.2], [20, 0]), springConfig);
   const translateY = useSpring(useTransform(scrollYProgress, [0, 0.2], [-700, 100]), springConfig);
   const ytranslate = useSpring(useTransform(scrollYProgress, [0, 0.2], [-1000, 100]), springConfig);
@@ -64,24 +64,30 @@ export const HeroParallax = () => {
   );
 };
 
+import { FaStar } from 'react-icons/fa'; // Importing star icon from react-icons
+
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative  z-10 ">
+    <div className="max-w-7xl relative z-10 ">
       <div className="inline-block">
-        <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-          The Best Internship <br /> Recruiting Platform
+        <h1 className="text-xl md:text-6xl font-bold dark:text-white">
+          Your Next Star Intern Awaits <FaStar className="inline-block text-yellow-300 pb-3" /><br /> Secure Top Talent with Hireup
         </h1>
-        <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
-  We connect <strong className="font-bold" style={{ color: '#006EFF' }}>Hiring Managers</strong> with the best <strong className="font-bold" style={{ color: '#006EFF' }}>Intern Talent</strong> in the tech industry. 
-  Through our application and ranking process, we can provide teams with the <strong className="font-bold" style={{ color: '#006EFF' }}>perfect new hire </strong>
-  based on their exact needs.
-</p>
-
-
+        <p className=" text-base md:text-3xl mt-8 dark:text-neutral-200 ">
+          Skip the Resume Pile. Define Your Criteria, <br />Get Ranked Candidates Instantly
+        </p>
+      </div>
+      <div className=" mx-auto pt-10 rounded-lg ">
+        <Link href="/main">
+          <button className=" text-white py-3 px-20 rounded-3xl  text-lg hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50 " style={{ backgroundColor: '#006EFF' }}>
+            Get Started
+          </button>
+        </Link>
       </div>
     </div>
   );
 };
+
 
 
 

@@ -15,15 +15,16 @@ export default function Main() {
                     <input
                         type="text"
                         placeholder="Enter your email"
-                        className="rounded-lg border-0 focus:ring-2 focus:ring-teal-500 w-3/4 relative z-10 mt-4 bg-neutral-950 placeholder:text-neutral-700 text-white py-2 px-4 shadow-lg"
+                        className="rounded-lg border-0 focus:ring-2 focus:ring-teal-500 w-3/4 relative z-10 mt-4 bg-gray-800 placeholder:text-neutral-700 text-white py-2 px-4 shadow-lg"
                     />
                 </div>
         <div className="h-2 bg-dark-bg"></div>
         <h1 className="ml-3 relative z-10 text-lg md:text-3xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold ">
           Follow our journey
         </h1>
-        <div className="flex gap-6 justify-center items-center my-6 ml-12">
-            <a className="text-white hover:text-orange-600 z-10 " aria-label="Visit TrendyMinds LinkedIn" href=""
+        
+        <div className="flex justify-center items-center my-6  space-x-6">
+            <a className="text-white hover:text-orange-600 z-10 " aria-label="Visit TrendyMinds LinkedIn" href="https://www.linkedin.com/company/usehireup/about/"
                 target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="h-8">
                     <path fill="currentColor"
@@ -31,15 +32,8 @@ export default function Main() {
                     </path>
                 </svg>
             </a>
-            <a className="text-white hover:text-orange-600 z-10" aria-label="Visit TrendyMinds Facebook" href=""
-                target="_blank">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" className="h-8">
-                    <path fill="currentColor"
-                        d="m279.14 288 14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z">
-                    </path>
-                </svg>
-            </a>
-            <a className="text-white hover:text-orange-600 z-10" aria-label="Visit TrendyMinds Instagram" href=""
+            
+            <a className="text-white hover:text-orange-600 z-10" aria-label="Visit TrendyMinds Instagram" href="https://www.instagram.com/usehireup/"
                 target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="h-8">
                     <path fill="currentColor"
@@ -47,7 +41,7 @@ export default function Main() {
                     </path>
                 </svg>
             </a>
-            <a className="text-white hover:text-orange-600 z-10" aria-label="Visit TrendyMinds Twitter" href=""
+            <a className="text-white hover:text-orange-600 z-10" aria-label="Visit TrendyMinds Twitter" href="https://twitter.com/useHireup"
                 target="_blank">
                 <svg className="h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path fill="currentColor"
